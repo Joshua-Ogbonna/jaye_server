@@ -19,7 +19,7 @@ app.get('/api/users', (req, res) => {
     })
 })
 
-const PORT = 30000
+const PORT = process.env.PORT || 30000
 
 app.listen(PORT, () => {
     console.log(`Server started on Port ${PORT}`)
