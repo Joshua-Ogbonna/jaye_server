@@ -28,9 +28,17 @@ router.post('/signup', (req, res) => {
           if (err) throw err
           newUser.password = hash
           newUser.save().then(user => {
-            res.status(201).json({
-              message: 'user registered successfully',
-              data: user
+            const payload = {
+              _id: user._id,
+              email: user.email,
+              name: user.name
+            }
+            jwt.sign(payload, process.env.SECRET, { expiresIn: '24h'}, (err, token) => {
+              if (err) throw err
+              res.status(200).json({
+                data: payload,
+                token: `Token: ${token}`
+              })
             })
           }).catch(err => console.log(err))
         })
@@ -58,7 +66,7 @@ router.post('/login', (req, res) => {
           }
           jwt.sign(payload, process.env.SECRET, { expiresIn: '24h' }, (err, token) => {
             if (err) throw err
-            return res.status(201).json({
+            return res.status(200).json({
               data: payload,
               token: `Toke ${token}`
             })
