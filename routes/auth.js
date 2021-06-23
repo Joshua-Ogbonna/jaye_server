@@ -33,7 +33,7 @@ router.post('/signup', (req, res) => {
               email: user.email,
               name: user.name
             }
-            jwt.sign(payload, process.env.SECRET, { expiresIn: '24h'}, (err, token) => {
+            jwt.sign(payload, process.env.SECRET, { expiresIn: '24h' }, (err, token) => {
               if (err) throw err
               res.status(200).json({
                 data: payload,
