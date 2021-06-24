@@ -14,7 +14,8 @@ router.post('/signup', (req, res) => {
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
       res.status(401).json({
-        messatge: 'User exists'
+        messatge: 'User exists',
+        success: false
       })
     } else {
       // Valid user
@@ -36,8 +37,9 @@ router.post('/signup', (req, res) => {
             jwt.sign(payload, process.env.SECRET, { expiresIn: '24h' }, (err, token) => {
               if (err) throw err
               res.status(200).json({
-                data: payload,
-                token: `Token: ${token}`
+                user: payload,
+                token: token,
+                success: true
               })
             })
           }).catch(err => console.log(err))
@@ -68,7 +70,8 @@ router.post('/login', (req, res) => {
             if (err) throw err
             return res.status(200).json({
               data: payload,
-              token: `Toke ${token}`
+              token: token,
+              success: true
             })
           })
         } else {
