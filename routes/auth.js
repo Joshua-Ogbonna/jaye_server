@@ -69,7 +69,7 @@ router.post('/login', (req, res) => {
           jwt.sign(payload, process.env.SECRET, { expiresIn: '24h' }, (err, token) => {
             if (err) throw err
             return res.status(200).json({
-              data: payload,
+              user: payload,
               token: token,
               success: true
             })
@@ -84,6 +84,13 @@ router.post('/login', (req, res) => {
     }
   }).catch(err => {
     return res.json(err)
+  })
+})
+
+// Get Profile router
+router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
+  res.json({
+    user: req.user
   })
 })
 

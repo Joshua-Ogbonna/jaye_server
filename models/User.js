@@ -9,7 +9,13 @@ const requiredSchema = {
 const userSchema = new Schema({
   name: requiredSchema,
   email: requiredSchema,
-  password: requiredSchema
+  password: requiredSchema,
+  leads: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Leads'
+    }
+  ]
 })
 
 const User = mongoose.model('user', userSchema)
