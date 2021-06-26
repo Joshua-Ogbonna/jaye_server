@@ -15,6 +15,7 @@ const leadsSchema = new Schema({
   name: requiredString,
   email: requiredString,
   phone: requiredString,
+  company: requiredString,
   confidence: requiredNumber,
   estimatedValue: requiredNumber,
   status: requiredString,

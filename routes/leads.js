@@ -11,6 +11,7 @@ router.post('/create/', passport.authenticate('jwt', { session: false }), async 
       user: req.user,
       name: req.body.name,
       email: req.body.email,
+      company: req.body.company,
       confidence: req.body.confidence,
       estimatedValue: req.body.estimatedValue,
       status: req.body.status,
