@@ -6,13 +6,18 @@ const requiredString = {
   required: true
 }
 
+const requiredNumber = {
+  type: Number,
+  required: true
+}
+
 const leadsSchema = new Schema({
   name: requiredString,
   email: requiredString,
   phone: requiredString,
   company: requiredString,
-  confidence: requiredString,
-  estimatedValue: requiredString,
+  confidence: requiredNumber,
+  estimatedValue: requiredNumber,
   status: requiredString,
   priority: requiredString,
   createdAt: { type: Date, default: Date.now() },
