@@ -5,7 +5,6 @@ const User = require('../models/User')
 const passport = require('passport')
 
 router.post('/create/', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  
   try {
     const newLead = new Leads({
       user: req.user,
