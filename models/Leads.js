@@ -28,8 +28,8 @@ leadsSchema.virtual('userLeads', {
 })
 
 // Set object and JSON property to true
-leadsSchema.set('toObject', { virtual: true })
-leadsSchema.set('toJSON', { virtual: true })
+leadsSchema.set('toObject', { virtuals: true })
+leadsSchema.set('toJSON', { virtuals: true })
 
 // Export schema
 const Leads = mongoose.model('Leads', leadsSchema)

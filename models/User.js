@@ -15,7 +15,8 @@ const userSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'Leads'
     }
-  ]
+  ],
+  clients: [{ type: Schema.Types.ObjectId, ref: 'Clients' }]
 })
 
 const User = mongoose.model('User', userSchema)
