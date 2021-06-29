@@ -45,7 +45,7 @@ router.get('/clients/:id', async (req, res) => {
 
 // Get Single Client
 router.get('/client/:id', async (req, res) => {
-  await Client.find()
+  await Client.findById({ _id: req.params.id })
     .then((client) => {
       return res.json({
         success: true,
