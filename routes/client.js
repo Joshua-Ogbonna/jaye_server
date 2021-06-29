@@ -29,11 +29,12 @@ router.post('/client/', passport.authenticate('jwt'), async (req, res) => {
 })
 
 // Get Clients
-router.get('/client/:id', async (req, res) => {
-  Client.findById({ _id: req.params.id })
-    .then((client) => {
+router.get('/clients/:id', async (req, res) => {
+  User.findOne({ _id: req.params.id })
+    .populate('clients')
+    .then((clients) => {
       return res.json({
-        data: client,
+        clients: clients,
         success: true
       })
     })
