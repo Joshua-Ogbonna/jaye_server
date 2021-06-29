@@ -30,16 +30,32 @@ router.post('/client/', passport.authenticate('jwt'), async (req, res) => {
 
 // Get Clients
 router.get('/client/:id', async (req, res) => {
-  User.findOne({ _id: req.params.id })
-    .populate('clients')
-    .then((clients) => {
+  Client.findById({ _id: req.params.id })
+    .then((client) => {
       return res.json({
-        clients: clients,
+        data: client,
         success: true
       })
     })
     .catch((err) => {
       return res.json({ error: err })
+    })
+})
+
+// Get Single Client
+router.get('/client/:id', async (req, res) => {
+  await Client.find()
+    .then((client) => {
+      return res.json({
+        success: true,
+        data: client
+      })
+    })
+    .catch((err) => {
+      return res.json({
+        success: false,
+        error: err.message
+      })
     })
 })
 

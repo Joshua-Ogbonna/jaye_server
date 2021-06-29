@@ -23,6 +23,10 @@ const clientSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true
+  },
+  notes: {
+    type: Schema.Types.ObjectId,
+    ref: 'Notes'
   }
 }, {
   timestamps: true
