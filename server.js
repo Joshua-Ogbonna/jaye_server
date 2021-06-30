@@ -32,7 +32,6 @@ mongoose
 app.use('/api', require('./routes/auth'))
 app.use('/api', require('./routes/leads'))
 app.use('/api', require('./routes/client'))
-app.use('/api', require('./routes/notes'))
 
 const PORT = process.env.PORT || 30000
 
