@@ -60,4 +60,23 @@ router.get('/client/:id', async (req, res) => {
     })
 })
 
+// Post a note
+router.put('/client/:id', async (req, res) => {
+  await Client.findById({ _id: req.params.id })
+    .then((client) => {
+      console.log(client.notes)
+      client.notes.push(req.body)
+      client.save()
+      res.status(201).json({
+        success: true,
+        data: client
+      })
+    }).catch(err => {
+      res.status(401).json({
+        success: true,
+        error: err.message
+      })
+    })
+})
+
 module.exports = router

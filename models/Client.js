@@ -24,10 +24,11 @@ const clientSchema = new Schema({
     ref: 'User',
     required: true
   },
-  notes: {
-    type: Schema.Types.ObjectId,
-    ref: 'Notes'
-  }
+  notes: [
+    {
+      body: String
+    }
+  ]
 }, {
   timestamps: true
 })
