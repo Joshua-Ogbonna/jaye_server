@@ -64,8 +64,7 @@ router.get('/client/:id', async (req, res) => {
 router.put('/client/:id', async (req, res) => {
   await Client.findById({ _id: req.params.id })
     .then((client) => {
-      console.log(client.notes)
-      client.notes.push(req.body)
+      client.notes.push(req.body.body)
       client.save()
       res.status(201).json({
         success: true,
