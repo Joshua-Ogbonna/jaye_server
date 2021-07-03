@@ -89,28 +89,26 @@ router.put('/task/:id', async (req, res) => {
         category: req.body.category,
         priority: req.body.priority,
         assignedTo: req.body.priority,
-        dueDate: req.body.dueDate
+        dueDate: req.body.dueDate,
+        body: req.body.body
       })
     } else {
       client.tasks = [
         {
-          type: String
-        },
-        {
-          priority: String
-        },
-        {
-          assignedTo: String
-        },
-        {
-          dueDate: Date
+          type: String,
+          priority: String,
+          assignedTo: String,
+          dueDate: Date,
+          body: String
         }
+        
       ]
       client.tasks.push({
         category: req.body.category,
         priority: req.body.priority,
         assignedTo: req.body.assignedTo,
-        dueDate: req.body.dueDate
+        dueDate: req.body.dueDate,
+        body: req.body.body
       })
     }
     client.save()
