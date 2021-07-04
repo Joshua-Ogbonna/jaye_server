@@ -88,9 +88,10 @@ router.put('/task/:id', async (req, res) => {
       client.tasks.push({
         category: req.body.category,
         priority: req.body.priority,
-        assignedTo: req.body.priority,
+        assignedTo: req.body.assignedTo,
         dueDate: req.body.dueDate,
-        body: req.body.body
+        body: req.body.body,
+        title: req.body.title
       })
     } else {
       client.tasks = [
@@ -99,7 +100,8 @@ router.put('/task/:id', async (req, res) => {
           priority: String,
           assignedTo: String,
           dueDate: Date,
-          body: String
+          body: String,
+          title: String
         }
         
       ]
@@ -108,7 +110,8 @@ router.put('/task/:id', async (req, res) => {
         priority: req.body.priority,
         assignedTo: req.body.assignedTo,
         dueDate: req.body.dueDate,
-        body: req.body.body
+        body: req.body.body,
+        title: req.body.title
       })
     }
     client.save()
