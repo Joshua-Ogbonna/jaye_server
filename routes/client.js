@@ -127,4 +127,9 @@ router.put('/task/:id', async (req, res) => {
   })
 })
 
+// Delete a task
+router.delete('/task/:id', (req, res) => {
+  
+})
+
 module.exports = router
