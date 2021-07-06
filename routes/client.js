@@ -98,7 +98,7 @@ router.put('/task/:id', async (req, res) => {
         {
           type: String,
           priority: String,
-          assignedTo: String,
+          assignedTo: Object,
           dueDate: Date,
           body: String,
           title: String
@@ -129,7 +129,7 @@ router.put('/task/:id', async (req, res) => {
 
 // Delete a task
 router.delete('/task/:id', (req, res) => {
-  
+
 })
 
 module.exports = router

@@ -35,7 +35,7 @@ const clientSchema = new Schema(
         category: String,
         priority: String,
         assignedTo: String,
-        dueDate: String,
+        dueDate: Object,
         body: String,
         title: String
       }
