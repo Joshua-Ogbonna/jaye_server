@@ -34,8 +34,8 @@ const clientSchema = new Schema(
       {
         category: String,
         priority: String,
-        assignedTo: String,
-        dueDate: Object,
+        assignedTo: Object,
+        dueDate: String,
         body: String,
         title: String
       }
