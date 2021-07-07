@@ -83,53 +83,66 @@ router.put('/client/:id', async (req, res) => {
 
 // Put a task
 router.put('/task/:id', async (req, res) => {
-  await Client.findById({ _id: req.params.id }).then((client) => {
-    if (client.tasks) {
-      client.tasks.push({
-        category: req.body.category,
-        priority: req.body.priority,
-        assignedTo: req.body.assignedTo,
-        dueDate: req.body.dueDate,
-        body: req.body.body,
-        title: req.body.title
+  await Client.findById({ _id: req.params.id })
+    .then((client) => {
+      if (client.tasks) {
+        client.tasks.push({
+          category: req.body.category,
+          priority: req.body.priority,
+          assignedTo: req.body.assignedTo,
+          dueDate: req.body.dueDate,
+          body: req.body.body,
+          title: req.body.title
+        })
+      } else {
+        client.tasks = [
+          {
+            type: String,
+            priority: String,
+            assignedTo: Object,
+            dueDate: Date,
+            body: String,
+            title: String
+          }
+        ]
+        client.tasks.push({
+          category: req.body.category,
+          priority: req.body.priority,
+          assignedTo: req.body.assignedTo,
+          dueDate: req.body.dueDate,
+          body: req.body.body,
+          title: req.body.title
+        })
+      }
+      client.save()
+      res.status(201).json({
+        success: true,
+        data: client
       })
-    } else {
-      client.tasks = [
-        {
-          type: String,
-          priority: String,
-          assignedTo: Object,
-          dueDate: Date,
-          body: String,
-          title: String
-        }
-        
-      ]
-      client.tasks.push({
-        category: req.body.category,
-        priority: req.body.priority,
-        assignedTo: req.body.assignedTo,
-        dueDate: req.body.dueDate,
-        body: req.body.body,
-        title: req.body.title
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        data: err.message
       })
-    }
-    client.save()
-    res.status(201).json({
-      success: true,
-      data: client
     })
-  }).catch(err => {
-    res.status(500).json({
-      success: false,
-      data: err.message
-    })
-  })
 })
 
 // Delete a task
-router.delete('/task/:id', (req, res) => {
-
+router.delete('/task/:id/:id2', async (req, res) => {
+  console.log(req.params.id2)
+  try {
+    const client = await Client.findById({ _id: req.params.id })
+    if(client) {
+      client.tasks.pull({ _id: req.params.id2 })
+      await client.save()
+      res.status(200).json({ success: true })
+    } else {
+      res.json({ success: false, reason: 'No data found' })
+    }
+  } catch (err) {
+    console.log(err)
+  }
 })
 
 module.exports = router
