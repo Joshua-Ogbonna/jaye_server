@@ -133,7 +133,7 @@ router.delete('/task/:id/:id2', async (req, res) => {
   console.log(req.params.id2)
   try {
     const client = await Client.findById({ _id: req.params.id })
-    if(client) {
+    if (client) {
       client.tasks.pull({ _id: req.params.id2 })
       await client.save()
       res.status(200).json({ success: true })

@@ -16,7 +16,8 @@ const userSchema = new Schema({
       ref: 'Leads'
     }
   ],
-  clients: [{ type: Schema.Types.ObjectId, ref: 'Clients' }]
+  clients: [{ type: Schema.Types.ObjectId, ref: 'Clients' }],
+  products: [{ type: String, title: String }]
 })
 
 const User = mongoose.model('User', userSchema)
