@@ -120,7 +120,7 @@ router.get(
 // Post a product
 router.put(
   '/product',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('jwt'),
   async (req, res) => {
     try {
       const user = req.user
