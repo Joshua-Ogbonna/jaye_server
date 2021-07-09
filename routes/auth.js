@@ -118,7 +118,7 @@ router.get(
 )
 
 // Post a product
-router.post(
+router.put(
   '/product',
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
