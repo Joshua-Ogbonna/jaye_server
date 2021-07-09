@@ -125,13 +125,28 @@ router.post(
     try {
       const user = req.user
       if (user.products) {
-
+        user.products.push({
+          category: req.body.category,
+          title: req.body.title,
+          description: req.body.description
+        })
       } else {
-        user.products = [{ type: String, title: String }]
-        
+        user.products = [{ category: String, title: String, description: String }]
+        user.products.push({
+          category: req.body.category,
+          title: req.body.title,
+          description: req.body.description
+        })
       }
+      await user.save()
+      res.status(200).json({
+        success: true
+      })
     } catch (err) {
-      console.log(err)
+      res.status(400).json({
+        success: false,
+        error: err
+      })
     }
   }
 )
