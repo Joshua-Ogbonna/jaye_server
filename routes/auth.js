@@ -160,51 +160,54 @@ router.put(
 // Create a sale
 router.put('/sale/:id', async (req, res) => {
   try {
-    const user = User.findById({ _id: req.params.id })
-    if (user.sales) {
-      user.sales.push({
-        name: req.body.name,
-        stage: req.body.stage,
-        amount: req.body.amount,
-        priority: req.body.priority,
-        owner: req.body.owner,
-        category: req.body.category,
-        productAssociate: req.body.productAssociate,
-        quantity: req.body.quantity,
-        contactAssociate: req.body.contactAssociate
-      })
-    } else {
-      user.sales = [
-        {
-          name: String,
-          stage: String,
-          amount: String,
-          priority: String,
-          owner: Object,
-          category: String,
-          productAssociate: Object,
-          quantity: String,
-          contactAssociate: Object,
-          closedDate: Date
-        }
-      ]
-      user.sales.push({
-        name: req.body.name,
-        stage: req.body.stage,
-        amount: req.body.amount,
-        priority: req.body.priority,
-        owner: req.body.owner,
-        category: req.body.category,
-        productAssociate: req.body.productAssociate,
-        quantity: req.body.quantity,
-        contactAssociate: req.body.contactAssociate,
-        closedDate: req.body.closedDate
+    const user = await User.findById({ _id: req.params.id })
+    if (user) {
+      console.log(user)
+      if (user.sales) {
+        user.sales.push({
+          name: req.body.name,
+          stage: req.body.stage,
+          amount: req.body.amount,
+          priority: req.body.priority,
+          owner: req.body.owner,
+          category: req.body.category,
+          productAssociate: req.body.productAssociate,
+          quantity: req.body.quantity,
+          contactAssociate: req.body.contactAssociate
+        })
+      } else {
+        user.sales = [
+          {
+            name: String,
+            stage: String,
+            amount: String,
+            priority: String,
+            owner: Object,
+            category: String,
+            productAssociate: Object,
+            quantity: String,
+            contactAssociate: Object,
+            closedDate: Date
+          }
+        ]
+        user.sales.push({
+          name: req.body.name,
+          stage: req.body.stage,
+          amount: req.body.amount,
+          priority: req.body.priority,
+          owner: req.body.owner,
+          category: req.body.category,
+          productAssociate: req.body.productAssociate,
+          quantity: req.body.quantity,
+          contactAssociate: req.body.contactAssociate,
+          closedDate: req.body.closedDate
+        })
+      }
+      await user.save()
+      res.status(200).json({
+        success: true
       })
     }
-    await user.save()
-    res.status(200).json({
-      success: true
-    })
   } catch (err) {
     res.json({
       success: false,
