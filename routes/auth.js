@@ -166,6 +166,7 @@ router.put('/sale/:id', async (req, res) => {
         name: req.body.name,
         stage: req.body.stage,
         amount: req.body.amount,
+        priority: req.body.priority,
         owner: req.body.owner,
         type: req.body.type,
         productAssociate: req.body.productAssociate,
@@ -177,23 +178,27 @@ router.put('/sale/:id', async (req, res) => {
         {
           name: String,
           stage: String,
-          Amount: String,
-          Owner: Object,
-          Type: String,
+          amount: String,
+          priority: String,
+          owner: Object,
+          type: String,
           productAssociate: Object,
-          Quantity: String,
-          contactAssociate: Object
+          quantity: String,
+          contactAssociate: Object,
+          closedDate: Date
         }
       ]
       user.sales.push({
         name: req.body.name,
         stage: req.body.stage,
         amount: req.body.amount,
+        priority: req.body.priority,
         owner: req.body.owner,
         type: req.body.type,
         productAssociate: req.body.productAssociate,
         quantity: req.body.quantity,
-        contactAssociate: req.body.contactAssociate
+        contactAssociate: req.body.contactAssociate,
+        closedDate: req.body.closedDate
       })
     }
     await user.save()

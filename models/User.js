@@ -22,12 +22,14 @@ const userSchema = new Schema({
     {
       name: String,
       stage: String,
-      Amount: String,
-      Owner: Object,
-      Type: String,
+      amount: String,
+      priority: String,
+      owner: Object,
+      type: String,
       productAssociate: Object,
-      Quantity: String,
-      contactAssociate: Object
+      quantity: String,
+      contactAssociate: Object,
+      closedDate: Date
     }
   ]
 })
