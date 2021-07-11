@@ -18,7 +18,18 @@ const userSchema = new Schema({
   ],
   clients: [{ type: Schema.Types.ObjectId, ref: 'Clients' }],
   products: [{ category: String, title: String, description: String }],
-  leads: [{  }]
+  sales: [
+    {
+      name: String,
+      stage: String,
+      Amount: String,
+      Owner: Object,
+      Type: String,
+      productAssociate: Object,
+      Quantity: String,
+      contactAssociate: Object
+    }
+  ]
 })
 
 const User = mongoose.model('User', userSchema)

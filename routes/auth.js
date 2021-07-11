@@ -157,4 +157,55 @@ router.put(
   }
 )
 
+// Create a sale
+router.put('/sale/:id', async (req, res) => {
+  try {
+    const user = User.findById({ _id: req.params.id })
+    if (user.sales) {
+      user.sales.push({
+        name: req.body.name,
+        stage: req.body.stage,
+        amount: req.body.amount,
+        owner: req.body.owner,
+        type: req.body.type,
+        productAssociate: req.body.productAssociate,
+        quantity: req.body.quantity,
+        contactAssociate: req.body.contactAssociate
+      })
+    } else {
+      user.sales = [
+        {
+          name: String,
+          stage: String,
+          Amount: String,
+          Owner: Object,
+          Type: String,
+          productAssociate: Object,
+          Quantity: String,
+          contactAssociate: Object
+        }
+      ]
+      user.sales.push({
+        name: req.body.name,
+        stage: req.body.stage,
+        amount: req.body.amount,
+        owner: req.body.owner,
+        type: req.body.type,
+        productAssociate: req.body.productAssociate,
+        quantity: req.body.quantity,
+        contactAssociate: req.body.contactAssociate
+      })
+    }
+    await user.save()
+    res.status(200).json({
+      success: true
+    })
+  } catch (err) {
+    res.json({
+      success: false,
+      error: err
+    })
+  }
+})
+
 module.exports = router
