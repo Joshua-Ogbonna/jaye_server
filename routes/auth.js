@@ -162,7 +162,6 @@ router.put('/sale/:id', async (req, res) => {
   try {
     const user = await User.findById({ _id: req.params.id })
     if (user) {
-      console.log(user)
       if (user.sales) {
         user.sales.push({
           name: req.body.name,
