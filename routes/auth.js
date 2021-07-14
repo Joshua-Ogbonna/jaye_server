@@ -217,7 +217,7 @@ router.put('/sale/:id', async (req, res) => {
 
 // Delete product
 router.delete('/product/:id/:id2', async (req, res) => {
-  console.log(req.params.id2)
+  // console.log(req.params.id2)
   try {
     const user = await User.findById({ _id: req.params.id })
     if (user) {
@@ -229,6 +229,23 @@ router.delete('/product/:id/:id2', async (req, res) => {
     }
   } catch (err) {
     console.log(err)
+  }
+})
+
+// Delete sale
+router.delete('/sale/:id/:id2', async (req, res) => {
+  // console.log(req.params.id2)
+  try {
+    const user = await User.findById({ _id: req.params.id })
+    if (user) {
+      user.sales.pull({ _id: req.params.id2 })
+      await user.save()
+      return res.status(200).json({ success: true })
+    } else {
+      return res.status(400).json({ success: false, message: 'User not found' })
+    }
+  } catch (err) {
+    res.json({ err: err.message })
   }
 })
 
