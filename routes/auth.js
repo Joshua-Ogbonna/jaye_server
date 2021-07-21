@@ -42,7 +42,7 @@ router.post('/signup', (req, res) => {
                 jwt.sign(
                   payload,
                   process.env.SECRET,
-                  { expiresIn: '24h' },
+                  { expiresIn: '365d' },
                   (err, token) => {
                     if (err) throw err
                     res.status(200).json({
