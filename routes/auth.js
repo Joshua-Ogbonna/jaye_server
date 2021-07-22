@@ -125,61 +125,66 @@ router.post("/staff", (req, res) => {
 });
 // Get Profile router
 router.get(
-  '/profile',
-  passport.authenticate('jwt', { session: false }),
+  "/profile",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     return res.json({
-      user: req.user
-    })
+      user: req.user,
+    });
   }
-)
+);
 
 // Post a product
-router.put(
-  '/leave/:id',
-  async (req, res) => {
-    try {
-      const user = await Staff.findById({ _id: req.params.id })
-      if (user) {
-        // console.log(user)
-        if (user.leaves) {
-          user.leaves.push({
-            name: req.body.name,
-            staffCode: req.body.staffCode,
-            reason: req.body.reason,
-            message: req.body.message
-          })
-        } else {
-          user.leaves = [{ name: String, staffCode: String, reason: String, message: String }]
-          user.leaves.push({
-            name: req.body.name,
-            staffCode: req.body.staffCode,
-            reason: req.body.reason,
-            message: req.body.message
-          })
-        }
-        await user.save()
-        res.status(200).json({
-          success: true
-        })
+router.put("/leave/:id", async (req, res) => {
+  try {
+    const user = await Staff.findById({ _id: req.params.id });
+    if (user) {
+      // console.log(user)
+      if (user.leaves) {
+        user.leaves.push({
+          name: req.body.name,
+          staffCode: req.body.staffCode,
+          reason: req.body.reason,
+          message: req.body.message,
+        });
       } else {
-        return res.json({
-          message: 'user not found!'
-        })
+        user.leaves = [
+          {
+            name: String,
+            staffCode: String,
+            reason: String,
+            message: String,
+            approved: { type: Boolean, default: false },  
+          },
+        ];
+        user.leaves.push({
+          name: req.body.name,
+          staffCode: req.body.staffCode,
+          reason: req.body.reason,
+          message: req.body.message,
+        });
       }
-    } catch (err) {
-      res.status(400).json({
-        success: false,
-        error: err
-      })
+      await user.save();
+      res.status(200).json({
+        success: true,
+      });
+    } else {
+      return res.json({
+        message: "user not found!",
+      });
     }
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      error: err,
+    });
   }
-)
+});
 
 // Create a sale
-router.put('/sale/:id', async (req, res) => {
+router.put("/sale/:id", async (req, res) => {
   try {
-    const user = await User.findById({ _id: req.params.id })
+    const user = await User.findById({ _id: req.params.id });
     if (user) {
       if (user.sales) {
         user.sales.push({
@@ -191,8 +196,8 @@ router.put('/sale/:id', async (req, res) => {
           category: req.body.category,
           productAssociate: req.body.productAssociate,
           quantity: req.body.quantity,
-          contactAssociate: req.body.contactAssociate
-        })
+          contactAssociate: req.body.contactAssociate,
+        });
       } else {
         user.sales = [
           {
@@ -205,9 +210,9 @@ router.put('/sale/:id', async (req, res) => {
             productAssociate: Object,
             quantity: String,
             contactAssociate: Object,
-            closedDate: Date
-          }
-        ]
+            closedDate: Date,
+          },
+        ];
         user.sales.push({
           name: req.body.name,
           stage: req.body.stage,
@@ -218,54 +223,58 @@ router.put('/sale/:id', async (req, res) => {
           productAssociate: req.body.productAssociate,
           quantity: req.body.quantity,
           contactAssociate: req.body.contactAssociate,
-          closedDate: req.body.closedDate
-        })
+          closedDate: req.body.closedDate,
+        });
       }
-      await user.save()
+      await user.save();
       res.status(200).json({
-        success: true
-      })
+        success: true,
+      });
     }
   } catch (err) {
     res.json({
       success: false,
-      error: err
-    })
+      error: err,
+    });
   }
-})
+});
 
 // Delete product
-router.delete('/product/:id/:id2', async (req, res) => {
+router.delete("/product/:id/:id2", async (req, res) => {
   // console.log(req.params.id2)
   try {
-    const user = await User.findById({ _id: req.params.id })
+    const user = await User.findById({ _id: req.params.id });
     if (user) {
-      user.products.pull({ _id: req.params.id2 })
-      await user.save()
-      return res.status(200).json({ success: true })
+      user.products.pull({ _id: req.params.id2 });
+      await user.save();
+      return res.status(200).json({ success: true });
     } else {
-      return res.status(400).json({ success: false, message: 'User not found' })
+      return res
+        .status(400)
+        .json({ success: false, message: "User not found" });
     }
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
-})
+});
 
 // Delete sale
-router.delete('/sale/:id/:id2', async (req, res) => {
+router.delete("/sale/:id/:id2", async (req, res) => {
   // console.log(req.params.id2)
   try {
-    const user = await User.findById({ _id: req.params.id })
+    const user = await User.findById({ _id: req.params.id });
     if (user) {
-      user.sales.pull({ _id: req.params.id2 })
-      await user.save()
-      return res.status(200).json({ success: true })
+      user.sales.pull({ _id: req.params.id2 });
+      await user.save();
+      return res.status(200).json({ success: true });
     } else {
-      return res.status(400).json({ success: false, message: 'User not found' })
+      return res
+        .status(400)
+        .json({ success: false, message: "User not found" });
     }
   } catch (err) {
-    res.json({ err: err.message })
+    res.json({ err: err.message });
   }
-})
+});
 
-module.exports = router
+module.exports = router;
