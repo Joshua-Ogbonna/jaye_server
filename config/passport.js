@@ -1,6 +1,6 @@
 const JWTStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
-const User = require('../models/User')
+const Staff = require('../models/Staff')
 const secret = process.env.SECRET
 
 const opts = {}
@@ -10,7 +10,7 @@ opts.secretOrKey = secret
 module.exports = (passport) => {
   passport.use(
     new JWTStrategy(opts, (jwt_payload, done) => {
-      User.findById(jwt_payload._id)
+      Staff.findById(jwt_payload._id)
         .then((user) => {
           if (user) return done(null, user)
           return done(null, false)

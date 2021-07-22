@@ -127,18 +127,22 @@ router.post("/staff", (req, res) => {
 // Get Profile router
 router.get("/staffProfile/:id", async (req, res) => {
   try {
-    const user = await Staff.findById({ _id: req.params.id });
+    const user = await Staff.findByid({ _id: req.params.id });
     if (user) {
-        return res.json({
-            user: user
-          });
+      return res.json({
+        user: user,
+        success: true,
+      });
     } else {
-        return res.json({
-            message: 'User not found!',
-          });
+      return res.json({
+        success: false,
+      });
     }
   } catch (err) {
-    res.json({ err });
+    return res.json({
+      success: false,
+      error: err,
+    });
   }
 });
 
