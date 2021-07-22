@@ -32,16 +32,16 @@ router.post("/newStaff", (req, res) => {
       } else {
         // Valid user
         const newUser = new Staff({
-            name,
-            email,
-            gender,
-            department,
-            rank,
-            dateOfBirth,
-            stateOfOrigin,
-            localGovernmentOrigin,
-            staffCode,
-            password,
+          name,
+          email,
+          gender,
+          department,
+          rank,
+          dateOfBirth,
+          stateOfOrigin,
+          localGovernmentOrigin,
+          staffCode,
+          password,
         });
 
         // Hash password
@@ -125,14 +125,21 @@ router.post("/staff", (req, res) => {
 });
 
 // Get Profile router
-router.get(
-  "/staffProfile",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    return res.json({
-      user: req.user,
-    });
+router.get("/staffProfile/:id", async (req, res) => {
+  try {
+    const user = await Staff.findById({ _id: req.params.id });
+    if (user) {
+        return res.json({
+            user: user
+          });
+    } else {
+        return res.json({
+            message: 'User not found!',
+          });
+    }
+  } catch (err) {
+    res.json({ err });
   }
-);
+});
 
 module.exports = router;
