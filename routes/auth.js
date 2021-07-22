@@ -154,7 +154,7 @@ router.put("/leave/:id", async (req, res) => {
             staffCode: String,
             reason: String,
             message: String,
-            approved: { type: Boolean, default: false },  
+            approved: { type: String, default: 'Not Approved' },
           },
         ];
         user.leaves.push({
