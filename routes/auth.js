@@ -136,24 +136,26 @@ router.get(
 
 // Post a product
 router.put(
-  '/product/:id',
+  '/leave/:id',
   async (req, res) => {
     try {
-      const user = await User.findById({ _id: req.params.id })
+      const user = await Staff.findById({ _id: req.params.id })
       if (user) {
         // console.log(user)
-        if (user.products) {
-          user.products.push({
-            category: req.body.category,
-            title: req.body.title,
-            description: req.body.description
+        if (user.leaves) {
+          user.leaves.push({
+            name: req.body.name,
+            staffCode: req.body.staffCode,
+            reason: req.body.reason,
+            message: req.body.message
           })
         } else {
-          user.products = [{ category: String, title: String, description: String }]
-          user.products.push({
-            category: req.body.category,
-            title: req.body.title,
-            description: req.body.description
+          user.leaves = [{ name: String, staffCode: String, reason: String, message: String }]
+          user.leaves.push({
+            name: req.body.name,
+            staffCode: req.body.staffCode,
+            reason: req.body.reason,
+            message: req.body.message
           })
         }
         await user.save()
